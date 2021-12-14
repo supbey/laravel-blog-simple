@@ -1,8 +1,8 @@
 {
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Laravel 8.6 blog.",
+    "keywords": ["framework", "laravel", "blog", "example"],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
@@ -11,7 +11,8 @@
         "laravel/framework": "^8.65",
         "laravel/helpers": "^1.4",
         "laravel/sanctum": "^2.11",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "laravel/ui": "3.4.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
