@@ -47,7 +47,23 @@ class Tag extends Model
                 'reverse_direction' => false,
             ]);
         }
-    }    
+    } 
+    
+    /**
+     * Return the index layout to use for a tag
+     *
+     * @param string $tag
+     * @param string $default
+     * @return string
+     */
+    public static function layout($tag, $default = 'blog.index')
+    {
+        $layout = static::where('tag', $tag)->get()->pluck('layout')->first();
+
+        return $layout ?: $default;
+    }
+
+
 }
 
 

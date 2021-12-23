@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 //use Illuminate\Support\Arr;
 use App\Services\Markdowner;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+// 在Post模型类顶部其它use语句下面添加如下这行
+use Carbon\Carbon;
 
 class Post extends Model
 {
@@ -126,6 +128,87 @@ class Post extends Model
     {
         return $this->content_raw;
     }
+
+
+
+
+    // 接着在 Post 模型类中添加如下四个方法
+    /**
+     * Return URL to post
+     *
+     * @param Tag $tag
+     * @return string
+     */
+    public function url(Tag $tag = null)
+    {
+        $url = url('blog/' . $this->slug);
+        if ($tag) {
+            $url .= '?tag=' . urlencode($tag->tag);
+        }
+
+        return $url;
+    }
+
+    /**
+     * Return array of tag links
+     *
+     * @param string $base
+     * @return array
+     */
+    public function tagLinks($base = '/blog?tag=%TAG%')
+    {
+        $tags = $this->tags()->get()->pluck('tag')->all();
+        $return = [];
+        foreach ($tags as $tag) {
+            $url = str_replace('%TAG%', urlencode($tag), $base);
+            $return[] = '<a href="' . $url . '">' . e($tag) . '</a>';
+        }
+        return $return;
+    }
+
+    /**
+     * Return next post after this one or null
+     *
+     * @param Tag $tag
+     * @return Post
+     */
+    public function newerPost(Tag $tag = null)
+    {
+        $query =
+            static::where('published_at', '>', $this->published_at)
+                ->where('published_at', '<=', Carbon::now())
+                ->where('is_draft', 0)
+                ->orderBy('published_at', 'asc');
+        if ($tag) {
+            $query = $query->whereHas('tags', function ($q) use ($tag) {
+                $q->where('tag', '=', $tag->tag);
+            });
+        }
+
+        return $query->first();
+    }
+
+    /**
+     * Return older post before this one or null
+     *
+     * @param Tag $tag
+     * @return Post
+     */
+    public function olderPost(Tag $tag = null)
+    {
+        $query =
+            static::where('published_at', '<', $this->published_at)
+                ->where('is_draft', 0)
+                ->orderBy('published_at', 'desc');
+        if ($tag) {
+            $query = $query->whereHas('tags', function ($q) use ($tag) {
+                $q->where('tag', '=', $tag->tag);
+            });
+        }
+
+        return $query->first();
+    }
+
 
 }
 

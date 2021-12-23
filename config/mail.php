@@ -34,11 +34,23 @@ return [
     */
 
     'mailers' => [
+        /*
         'smtp' => [
             'transport' => 'smtp',
             'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'username' => env('MAIL_USERNAME'),
+            'password' => env('MAIL_PASSWORD'),
+            'timeout' => null,
+            'auth_mode' => null,
+        ],
+        */
+        'smtp' => [
+            'transport' => 'smtp',
+            'host' => env('MAIL_HOST', 'smtp.qq.com'),
+            'port' => env('MAIL_PORT', 465),
+            'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
@@ -90,11 +102,17 @@ return [
     | used globally for all e-mails that are sent by your application.
     |
     */
-
+    /*
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
+    */
+    'from' => [
+        'address' => env('MAIL_FROM_ADDRESS', 'supbey@qq.com'),
+        'name' => env('MAIL_FROM_NAME', '倍云邦'),
+    ],
+    
 
     /*
     |--------------------------------------------------------------------------

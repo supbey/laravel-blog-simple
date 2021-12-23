@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
-
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,3 +64,16 @@ Route::namespace('App\Http\Controllers\Admin')->group(function() {
     Route::post('admin/upload/folder', 'UploadController@createFolder');
     Route::delete('admin/upload/folder', 'UploadController@deleteFolder');
 });
+
+
+// Route::get('/send_mail','TestController@sendMail');
+Route::get('/send_mail', [TestController::class, 'sendMail']);
+//Route::get('contact', 'ContactController@showForm');
+//Route::post('contact', 'ContactController@sendContactInfo');
+Route::get('contact', [ContactController::class, 'showForm']);
+Route::post('contact', [ContactController::class, 'sendContactInfo']);  
+
+
+
+
+

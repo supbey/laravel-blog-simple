@@ -25,6 +25,7 @@
         "resolve-url-loader": "^4.0.0",
         "sass": "^1.32.11",
         "sass-loader": "^11.0.1",
-        "selectize": "^0.12.6"
+        "selectize": "^0.12.6",
+        "startbootstrap-clean-blog": "5.0.1"
     }
 }
