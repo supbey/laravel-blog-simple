@@ -55,10 +55,7 @@ Route::namespace('App\Http\Controllers\Auth')->group(function() {
 
 
 Route::namespace('App\Http\Controllers\Admin')->group(function() {
-    // 在这一行下面
     Route::get('admin/upload', 'UploadController@index');
-
-    // 添加如下路由
     Route::post('admin/upload/file', 'UploadController@uploadFile');
     Route::delete('admin/upload/file', 'UploadController@deleteFile');
     Route::post('admin/upload/folder', 'UploadController@createFolder');
@@ -73,7 +70,8 @@ Route::get('/send_mail', [TestController::class, 'sendMail']);
 Route::get('contact', [ContactController::class, 'showForm']);
 Route::post('contact', [ContactController::class, 'sendContactInfo']);  
 
+// Route::get('rss', 'BlogController@rss');
+Route::get('rss', [BlogController::class, 'rss']);
 
-
-
-
+// Route::get('sitemap.xml', 'BlogController@siteMap');
+Route::get('sitemap.xml', [BlogController::class, 'siteMap']);

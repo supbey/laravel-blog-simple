@@ -19,7 +19,10 @@ class ContactController extends Controller
         $data = $request->only('name', 'email', 'phone');
         $data['messageLines'] = explode("\n", $request->get('message'));
 
-        Mail::to($data['email'])->send(new ContactMail($data));
+        // 找到这一行
+        // Mail::to($data['email'])->send(new ContactMail($data));
+        // 然后将其修改为：
+        Mail::to($data['email'])->queue(new ContactMail($data));
 
         return back()
             ->with("success", "消息已发送，感谢您的反馈");
